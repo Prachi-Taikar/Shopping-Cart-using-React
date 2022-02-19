@@ -3,6 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import ProductList from './components/ProductList';
 import React, {useState} from 'react';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -21,18 +22,30 @@ function App() {
 
   let [productList, setProductList] = useState(products)
 
+  let[totalAmount, setTotalAmount] = useState(0)
 
   const incrementQuantity = (index) => {
     let newProductList = [...productList]
-    newProductList[index].quantity++
+    let newTotalAmount = totalAmount;
+    newProductList[index].quantity++;
+    newTotalAmount +=newProductList[index].price
+    
+    setTotalAmount(newTotalAmount);
     setProductList(newProductList);
   }
 
   const decrementQuantity = (index) => {
     let newProductList = [...productList]
-    newProductList[index].quantity > 0? newProductList[index].quantity-- : newProductList[index].quantity=0
+    let newTotalAmount = totalAmount;
+
+    if (newProductList[index].quantity > 0) {
+      newProductList[index].quantity-- 
+      newTotalAmount -= newProductList[index].price;
+    }
+
+    setTotalAmount(newTotalAmount)
     setProductList(newProductList);
-  }
+  };
 
   return (
     <>
@@ -42,7 +55,7 @@ function App() {
     <ProductList productList={productList} incrementQuantity = {incrementQuantity}  decrementQuantity = {decrementQuantity} />
     </main>
 
-    {/* <Footer/> */}
+    <Footer totalAmount= {totalAmount}/>
     </>
   );
 }
