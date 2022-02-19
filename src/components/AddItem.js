@@ -37,7 +37,9 @@ class AddItem extends React.Component {
                         <button  type="submit" className="btn btn-primary " >Add</button>
 
                         <hr/>
+                        <h1>Product List</h1>
                 </form>
+                
                 
                 );
             }  
